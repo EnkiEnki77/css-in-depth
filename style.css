@@ -1,0 +1,28 @@
+/* When two or more selectors target the same element and have declarations for the same property it creates a 
+declaration conflict. */
+
+/* To determine which will win out the browser utilizes a set of rules (the cascade), this keeps results predictable */
+
+/* The rules are:
+1. style orignin: whichever has the highest-priority origin wins, else...
+* there are three style origin types. author styles, user styles, and user-agent styles. 
+Author styles are the styles written by the developer. user styles are added into the document by a user through the browser
+and user-agent styles are the default styles applied by the browser. 
+* The priority of origins is as follows... author, user, user-agent
+2. inline-styles: if one is an inline style and the other isnt it wins, else...
+3. layer: whichever is defined in highest priority scope wins, else...
+4. specificity: whichever has selector with highest specificity wins, else...
+5. scope proximity: whichever has highest priority scope wins, else...
+6. whichever comes last in source order wins.  */
+h1 {
+  /* important makes a declaration a higher priority origin. However, user-agent important styles override, user important,
+    whereas user important overrides inline important, whereas inline important overrides author style important. The only thing
+    that overrides user-agent important is the transition property. */
+  font-family: serif !important;
+}
+#page-title {
+  font-family: sans-serif;
+}
+.title {
+  font-family: monospace;
+}
