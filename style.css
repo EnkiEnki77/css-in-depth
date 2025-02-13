@@ -32,17 +32,25 @@ h1 {
 }
 
 /* Overrides user-agent styles */
-#main-nav {
+.nav {
   padding: 0;
   list-style: none;
 }
 
-#main-nav li {
+.nav li {
   display: inline-block;
   cursor: pointer;
 }
 
-#main-nav a {
+/* #main-nav a {
+  text-decoration: none;
+  color: white;
+  padding: 0.5em 1.5em;
+  background-color: teal;
+} */
+
+/* lowered specificity (option 3) */
+.nav a {
   text-decoration: none;
   color: white;
   padding: 0.5em 1.5em;
@@ -53,6 +61,48 @@ h1 {
 /* Any number of ID's overrides any number of classes which overrides any number of type selectors */
 /* pseudo-classes and attribute selectors have the same specificiy as classe. pseudo elements have the same as
    type selectors. universal selector and combinators (+, >, ~) have no specificity.  */
-.featured {
+
+/* .featured {
+  background-color: orange;
+} */
+
+/* When you run into declaration conflicts due to specificity like above, you have a few options to solve it. */
+
+/* Option 1: use !important to make the declaration a higher priority origin. */
+/* This is a bad solution, because if you start using !important everywhere, what happens if you need to override something
+   that already has it? When two declarations origins match youre back to relying on specificity. */
+
+/* .featured {
+  background-color: orange !important;
+} */
+
+/* Option 2: make the selector you want to win more specific. This is better, but as our styles get more complex well start
+   having running into this issue of having to make our selectors more and more complex for them to be able to win out. */
+
+/* #main-nav .featured {
+  background-color: orange;
+} */
+
+/* Option 3: even better would to try to just lower the specificity of the selector you dont want to win before increasing
+   the specificity of the one you do. That way you only have to increase the new one as minimally as possible. */
+/* In larger projects specificity becomes a sort of arms race. It's best to keep specificity as low as is practical so
+   So that when you need to override something later your options are open.  */
+
+/* .nav .featured {
+  background-color: orange;
+} */
+
+/* Option 4: make the specificity the same so you can utilize source order. This solves the specificity arms race problem
+   But now, if we want to use the featured class on a tags elsewhere on the page they'll come out only partially styeld.
+   Be careful about getting too general with selectors. Youll end up needing styles to support them elsewhere on the page*/
+
+/* This is a compound selector. It says "match a tags with a featured class" */
+a.featured {
   background-color: orange;
 }
+
+/* Overrall, if youll be reusing a class across the page option 4 is best, along with some additional styles to support it
+   where it's used. Otherwise, option 3 is best. */
+
+/* There are two common rules of thumb when working with the cascade. Don't use ID's and dont use !important. These both
+   make things difficult to override. */
