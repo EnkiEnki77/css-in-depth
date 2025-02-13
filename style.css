@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 /* When two or more selectors target the same element and have declarations for the same property it creates a 
 declaration conflict. */
 
@@ -25,4 +29,30 @@ h1 {
 }
 .title {
   font-family: monospace;
+}
+
+/* Overrides user-agent styles */
+#main-nav {
+  padding: 0;
+  list-style: none;
+}
+
+#main-nav li {
+  display: inline-block;
+  cursor: pointer;
+}
+
+#main-nav a {
+  text-decoration: none;
+  color: white;
+  padding: 0.5em 1.5em;
+  background-color: teal;
+}
+
+/* This wont override the above declaration because the selector is less specific. */
+/* Any number of ID's overrides any number of classes which overrides any number of type selectors */
+/* pseudo-classes and attribute selectors have the same specificiy as classe. pseudo elements have the same as
+   type selectors. universal selector and combinators (+, >, ~) have no specificity.  */
+.featured {
+  background-color: orange;
 }
