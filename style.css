@@ -1,5 +1,33 @@
 body {
+  /* overrides margin applied by user-agent */
   margin: 0;
+  /* It's common to add the main font and body text styles to the body element so they are inherited by all the text 
+     elements on the page. */
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* This is the order you should specifiy the pseudoclasses for links */
+/* The cascade is the reason this order matters. They all have the same specificity, so source order determines what 
+   overrides what. */
+a:link {
+  background-color: blue;
+  color: white;
+  text-decoration: initial;
+  padding: 2px;
+}
+
+a:visited {
+  background-color: purple;
+}
+
+a:hover {
+  background-color: transparent;
+  color: blue;
+  text-decoration: underline;
+}
+
+a:active {
+  color: red;
 }
 
 /* When two or more selectors target the same element and have declarations for the same property it creates a 
@@ -105,4 +133,110 @@ a.featured {
    where it's used. Otherwise, option 3 is best. */
 
 /* There are two common rules of thumb when working with the cascade. Don't use ID's and dont use !important. These both
-   make things difficult to override. */
+   make things difficult to override. Nowadays theyre acceptable in certian situations, such as with layers and scope. */
+
+/* A  declaration that wins the cascade battle is a cascade value. It's a value applied to a property of an elment as a result
+   of the cascade. If a property is never specified it has no cascade value*/
+
+/* The last way a an element can recieve styles is through inheritance. */
+/* If an element has no cascaded value for a given property, it may then inherit a value from its parent element */
+
+/* There are four values you can apply to any property that will manipulate the cascade. */
+/* initial, inherit, unset, and revert */
+
+/* Sometimes you want inheritance to take place where a cascaded value is preventing it. You would use the inherit keyword */
+.footer {
+  color: #666;
+  background-color: #ccc;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* We want the color to inherit, but instead of recieving the cascade style from the link ruleset above. */
+/* The benefit is now the link will change with the footer if anything alters it. Thats why youre not just hardcoding
+   a color here. */
+/* You can also use inherit to force inheritance for properties that usually don't. */
+/* .footer a {
+  color: inherit;
+  background-color: transparent;
+  text-decoration: underline;
+} */
+
+/* If you want to revert a property to it's default value you can use initial. This allows you to not have to think
+   about what the initial value of a property is if you want to revert back to it. Keep in mind, this isnt the value
+   applied by the user-agent, it's the one defined as default in the spec. */
+.footer a {
+  background-color: initial;
+}
+
+/* unset is a combo of inherit and initial. It says inheritable properties to inherit, and noninheritable ones to initial */
+.footer a {
+  /* sets the value to initial */
+  background-color: unset;
+  /* sets the value to inherit */
+  color: unset;
+}
+
+/* revert initial and unset override all styles from author and user-agent style sheets. Sometimes you want to override.
+   Just the author styles and leave user-agent ones intact. This is where revert comes into play. */
+.footer a {
+  /* If we used initial here the value would be none because that's the default for this property. The underline is actually
+     set by the user-agent, so we need to use revert. */
+  text-decoration: revert;
+}
+
+/* Be careful about shorthands overriding omitted values, even if you ommit them under the hood theyre just set to initial */
+h1 {
+  font-weight: bold;
+}
+
+.title {
+  font: 32px Helvetica, Arial, sans-serif;
+}
+
+.nav .featured {
+  background-color: orange;
+  /* Four value shorhands order things y,x. Two value x,y. */
+  box-shadow: 10px 2px #6f9090;
+}
+
+/* Adding a feature query allows you to specify styles if a browser supports them, otherwise fallback styles are implemented */
+/* This is the fallback behavior for legacy browsers */
+.coffees {
+  margin: 20px 0;
+}
+
+.coffees a {
+  display: inline-block;
+  min-width: 300px;
+  padding: 10px 15px;
+  margin: 0 10px 10px 0;
+  color: black;
+  background-color: initial;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
+/* feature query that targets only browsers that understand grid layout */
+@supports (display: grid) {
+  /* Defines grid layout for modern browsers */
+  .coffees {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  /* Overrides unnecessary fallback styles we don't want for our grid */
+  .coffees a {
+    margin: unset;
+    min-width: unset;
+  }
+}
+
+/* featur queries also have syntax that queries when a browser doesnt support a feature, syntax for when a browser either
+   one specified feature OR another specified feature */
+
+/* @supports not (display:grid){} */
+
+/* @supports (display:grid) or (display:flex){} */
