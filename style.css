@@ -234,9 +234,31 @@ h1 {
   }
 }
 
-/* featur queries also have syntax that queries when a browser doesnt support a feature, syntax for when a browser either
-   one specified feature OR another specified feature */
+/* feature queries also have syntax that queries when a browser doesnt support a feature, syntax for when a browser supports 
+either one specified feature OR another specified feature, syntax for when a browser supports both of two specified features,
+and syntax for when a browser supports a specific selector. */
 
 /* @supports not (display:grid){} */
 
 /* @supports (display:grid) or (display:flex){} */
+
+/* @supports (display:grid) and (display:flex){} */
+
+/* @supports selectorr (:user-invalid){} */
+
+/* Progressive enhancement like this where a feature can be utilized or not depending on the browser is a feature of the
+   language called resiliance. It enables CSS to be fault tolerant. This is important for keeping our code up to date 
+   with new features while not breaking it in older browsers. */
+
+/* If youd like to experiment with experimental features of CSS that havent been resolved in the spec yet you type 
+   chrome://flags into the web browser so you can enable them. For firefox download firefox dev edition. */
+
+/* How does the browser determine which styles are applied to which elements? It follows the rules of the cascade. */
+/* How is a selectors specificity determined? The number of ID's, classes, and tagnames in the selector. */
+/* When what happens for certain properties when no cascaded value is present? They inherit the value from their parent */
+/* What's the difference between unset and revert? Unset undoes styles provided for that property either setting the style
+   back to the default for that property denoted in the spec or making it inherit from it's parent depending on whether its
+   an inheritable property or not; whereas revert sets the style back to what was provided by the user-agent.*/
+/* Why use shorthand properties? They allow a concise way to set values for multiple related properties at once.*/
+/* Why use progressive enhancement? It allows us to utilize cutting edge css functionality without breaking our app in 
+   older browsers. */
